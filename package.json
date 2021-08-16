@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/musstaffali/books-db/issues"
   },
-  "homepage": "https://github.com/musstaffali/books-db#readme"
+  "homepage": "https://github.com/musstaffali/books-db#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
