@@ -4,9 +4,13 @@ const app = express();
 
 //connect DB
 mongoose.connect(dbUrl, {
-    useFindAndModify:
+    useFindAndModify: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useNewUrlParser: true,
 })
-
+.then(()=> console.log('Db Connected'))
+.catch(err => console.log(err));
 //Routes
 //Users routes
 
