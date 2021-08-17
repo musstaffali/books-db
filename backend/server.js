@@ -5,8 +5,31 @@ const app = express();
 
 //Routes
 //Users routes
+
+//Register
 app.post('/api/users/register', (req, res)=> {
     res.send('Register route')
+});
+
+//Login
+app.post('/api/users/login', (req, res) => {
+    res.send('login route')
+})
+
+//update user
+app.put('/api/users/update', (req, res) => {
+    res.send('Update Route');
+});
+
+//Delete user
+app.delete('/api/users/:id', (req, res) => {
+    res.send('Delete route');
+})
+
+
+//fetch users
+app.get('/api/users', (req, res) => {
+    res.send('Fetch users');
 });
 
 //Server
