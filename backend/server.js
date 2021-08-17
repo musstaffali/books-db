@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const app = express();
 
 //connect DB
-mongoose.connect(dbUrl, {})
+mongoose.connect(dbUrl, {
+    useFindAndModify:
+})
 
 //Routes
 //Users routes
@@ -39,3 +41,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is up and running ${PORT}`);
 });
+
+book
+keep
