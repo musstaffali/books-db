@@ -3,18 +3,30 @@ const mongoose = require('mongoose');
 require('./config/dbConnect')();
 const app = express();
 
+//Passing body data
+app.use(express.json());
+
+
 //Routes
-//Users routes
+app.use('./api/users/register')
 
 //Register
-app.post('/api/users/register', (req, res)=> {
-    res.send('Register route')
+app.post('/api/users/register',async (req, res)=> {
+   try {
+     const { name, email, password } = req.body;
+    const user = await User.create({ name, email, password });
+    console.log(user);
+
+    res.send(user);
+   } catch (error) {
+       console.log(error);
+   }
 });
 
 //Login
 app.post('/api/users/login', (req, res) => {
-    res.send('login route')
-})
+    res.send('login route');
+});
 
 //update user
 app.put('/api/users/update', (req, res) => {
