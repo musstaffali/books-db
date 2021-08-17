@@ -1,16 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('./config/dbConnect')();
 const app = express();
 
-//connect DB
-mongoose.connect(dbUrl, {
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useNewUrlParser: true,
-})
-.then(()=> console.log('Db Connected'))
-.catch(err => console.log(err));
 //Routes
 //Users routes
 
@@ -46,5 +38,5 @@ app.listen(PORT, () => {
     console.log(`Server is up and running ${PORT}`);
 });
 
-book
-keep
+// book
+// keep
