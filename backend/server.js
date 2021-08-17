@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //connect DB
-
+mongoose.connect(dbUrl, {})
 
 //Routes
 //Users routes
