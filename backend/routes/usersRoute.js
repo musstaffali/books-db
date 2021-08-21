@@ -1,3 +1,4 @@
+const asynchHandler = require('express-async-handler');
 const express = require('express');
 const User = require('../models/User');
 
@@ -18,11 +19,21 @@ asynHandler(async (req, res) => {
   }) 
 );
 
-
 //Login
-usersRoute.post('/login', (req, res) => {
-  res.send('login route');
-});
+usersRoute.post(
+  '/login', 
+  asynHandler(async (req, res) => {
+  const {email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+if(user){
+  res.send(user)
+}else {
+  res.send('User not found');
+}
+})
+);
 
 //update user
 usersRoute.put('/update', (req, res) => {
