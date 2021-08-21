@@ -27,10 +27,19 @@ usersRoute.post(
 
   const user = await User.findOne({ email });
 
-if(user){
-  res.send(user)
-}else {
-  res.send('User not found');
+if(user && (await user.isPasswordMatch(password))) {
+  //set status code
+  res.status(200);
+
+  res.json({
+    _id: user._id,
+    name: user.name,
+    password: user.password,
+    email: user.password
+  });
+} else {
+  res.status(401);
+  throw new Error('Invalid credentials')
 }
 })
 );
