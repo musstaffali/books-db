@@ -1,7 +1,7 @@
 const express = require('express');
 const expressAsyncHandler = require('express-async-handler');
 const asynHandler = require('express-async-handler');
-
+const authMiddlware = require('../middlewares/authMiddleware');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
@@ -54,32 +54,32 @@ usersRoute.post(
   })
 );
 
-//update user
-// usersRoute.put(
-//   '/update',
-//   authMiddleware,
-//   expressAsyncHandler(async (req, res) => {
-//     //Find the login user by ID
-//     const user = await User.findById(req.user._id);
+// update user
+usersRoute.put(
+  '/update',
+  authMiddlware,
+  expressAsyncHandler(async (req, res) => {
+    //Find the login user by ID
+    const user = await User.findById(req.user._id);
 
-//     if (user) {
-//       user.name = req.body.name || user.name;
-//       user.email = req.body.email || user.email;
-//       if (req.body.password) {
-//         user.password = req.body.password || user.password;
-//       }
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password || user.password;
+      }
 
-//       const updatedUser = await user.save();
+      const updatedUser = await user.save();
 
-//       res.json({
-//         _id: updatedUser._id,
-//         name: updatedUser.name,
-//         email: updatedUser.email,
-//         token: generateToken(updatedUser._id),
-//       });
-//     }
-//   })
-// );
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        token: generateToken(updatedUser._id),
+      });
+    }
+  })
+);
 
 //Delete user
 usersRoute.delete('/:id', (req, res) => {
