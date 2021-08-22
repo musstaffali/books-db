@@ -2,10 +2,10 @@
 const errorMiddlewareHandler = (err, req, res, next) => {
     //set status code
     const errorStatusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.statusCode(errorStatusCode);
+    res.status(errorStatusCode);
     res.json({
-        messsage: err.messsage,
+      message: err.message,
     });
-}
-
-module.exports = { eerrorMiddlewareHandlerrro }
+  };
+  
+  module.exports = { errorMiddlewareHandler };
