@@ -4,9 +4,10 @@
   "description": "- CRUD operations - Database modelling - Database association - User profile - User update profile - Authentication (Login/Logout)",
   "main": "server.js",
   "scripts": {
-    "start":"node backend/server.js",
+    "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend"
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,18 @@
   "homepage": "https://github.com/musstaffali/books-db#readme",
   "dependencies": {
     "async-handler": "^0.0.3",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^6.2.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
