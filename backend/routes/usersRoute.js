@@ -1,6 +1,7 @@
 const asynchHandler = require('express-async-handler');
 const express = require('express');
 const User = require('../models/User');
+const generateToken = require('../utils/generateToken');
 
 const usersRoute = express.Router();
 
@@ -32,10 +33,11 @@ if(user && (await user.isPasswordMatch(password))) {
   res.status(200);
 
   res.json({
-    _id: user._id,
-    name: user.name,
-    password: user.password,
-    email: user.password
+    _id: userCreated._id,
+    name: userCreated.name,
+    password: userCreated.password,
+    email: userCreated.password,
+    token: generateToken(user._id),
   });
 } else {
   res.status(401);
