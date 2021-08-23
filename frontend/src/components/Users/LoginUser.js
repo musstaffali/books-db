@@ -1,48 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/actions/users/userActions';
-import ErrorMessage from '../DisplayMessage/ErrorMessage';
-import Loading from '../Loading/Loading';
+import { loginUserAction } from '../../redux/actions/users/usersActions';
+import ErrorMessage from '../ErrorMessage';
 
-const Login = ({ history }) => {
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
+const LoginUser = ({ history }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
 
-  //Before login in we will check if you have login the we redirect you
+  //Grab pieces of data from our store that we care about
 
-  const userLoginDetails = useSelector(state => state.userLogin);
+  const state = useSelector(state => {
+    return state.userLogin;
+  });
 
-  const { loading, userInfo, error } = userLoginDetails;
-  console.log(loading, userInfo, error);
+  const { loading, userInfo, error } = state;
 
-  useEffect(() => {
-    if (userInfo) {
-      history.push('/');
-    }
-  }, [dispatch, userInfo, history]);
-  //submit form
-  const submitFormHandler = e => {
+  //Submit handler
+  const loginUserSubmitHandler = e => {
     e.preventDefault();
-    dispatch(loginUser(email, password));
     console.log(email, password);
+    dispatch(loginUserAction(email, password));
   };
+
+  //Redirect
+  useEffect(() => {
+    if (userInfo) history.push('/profile');
+  }, [state]);
 
   return (
     <div className='row container-height'>
       <div className='col-lg-6 col-md-6 m-auto'>
         <div className='container'>
-          {loading && <Loading />}
-          {error && <ErrorMessage error={error} />}
-          <h1 className='text-center'>Login</h1>
-          <form onSubmit={submitFormHandler}>
+          {loading && <h1>Loading</h1>}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <form onSubmit={loginUserSubmitHandler}>
             <fieldset>
               <div className='form-group'>
                 <label htmlFor='exampleInputEmail1'>Email address</label>
                 <input
                   value={email}
-                  onChange={e => setemail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   type='email'
                   className='form-control'
                   id='exampleInputEmail1'
@@ -54,7 +53,7 @@ const Login = ({ history }) => {
                 <label htmlFor='exampleInputPassword1'>Password</label>
                 <input
                   value={password}
-                  onChange={e => setpassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   type='password'
                   className='form-control'
                   id='exampleInputPassword1'
@@ -72,4 +71,4 @@ const Login = ({ history }) => {
   );
 };
 
-export default Login;
+export default LoginUser;
