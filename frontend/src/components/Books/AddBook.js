@@ -1,27 +1,43 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createBookAction } from '../../redux/actions/books/bookActions';
+import { createBook } from '../../redux/actions/books/bookActions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AddBook = () => {
+const Login = () => {
+  return (
+    <div>
+      <h1>Login</h1>
+    </div>
+  );
+};
+
+
+
+const AddBook = ({ history }) => {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
 
-  //dispatch
+  //Get the user id from store
+
+  const userLogin = useSelector(state => state.userLogin);
+
+  const { userInfo } = userLogin;
+  console.log(userInfo._id);
+  //dispatch action
   const dispatch = useDispatch();
 
-  //Handle form submit
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-
+  const formSubmitHandler = e => {
     const data = {
+      category,
       title,
       author,
-      category,
+      createdBy: userInfo && userInfo._id,
     };
-    dispatch(createBookAction(data));
+    e.preventDefault();
+    dispatch(createBook(data));
+    history.push('/books');
   };
+  console.log(category);
   return (
     <div className='row container-height'>
       <div className='col-lg-6 col-md-6 m-auto'>
@@ -56,7 +72,7 @@ const AddBook = () => {
                 </div>
                 <div className='modal-body'>
                   <h1 className='text-center'>Add Book</h1>
-                  <form onSubmit={handleFormSubmit}>
+                  <form onSubmit={formSubmitHandler}>
                     <fieldset>
                       <div className='form-group'>
                         <select
